@@ -1,28 +1,14 @@
 import React from "react";
 
 class TodoForm extends React.Component {
-  constructor() {
-    super();
-  }
-
-  handleChanges = e => {
-    this.setState({
-      ...this.state,
-      input: e.target.value
-    });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.handleAddTodo(this.state.input);
-  }
-
   render() {
+    console.log(this.props.input);
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input onChange={this.handleChanges} type="text" name="todo"/>
-      </form>
-    )
+      <div>
+        <input onChange={this.props.handleChanges} type="text" name="todo"/>
+        <button onClick={() => this.props.handleAddTodo(this.props.input)}>Add Todo</button>
+      </div>
+    );
   }
 }
 

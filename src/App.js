@@ -6,7 +6,7 @@ import TodoList from './components/TodoList';
 const todos = [
   {
     task: "Complete this module project",
-    id: Math.floor(Math.random() * 1000),
+    id: Date.now(),
     completed: false
   },
 ];
@@ -18,7 +18,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      todos: todos
+      todos: todos,
+      input: ""
     };
   }
 
@@ -42,8 +43,8 @@ class App extends React.Component {
   // Add Todo 
   handleAddTodo = (todoName) => {
     const newTodo = {
-      name: todoName,
-      id: Math.floor(Math.random() * 1000),
+      task: todoName,
+      id: Date.now(),
       completed: false
     };
 
@@ -63,14 +64,25 @@ class App extends React.Component {
     });
   }
 
+  // Form handle changes
+  handleChanges = e => {
+    this.setState({
+      ...this.state,
+      input: e.target.value
+    });
+  };
+
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
         <div>
           <TodoList handleCompletedTodo={this.handleCompletedTodo} todos={this.state.todos}/>
-          <TodoForm handleAddTodo={this.handleAddTodo}/>
-          <button onClick={this.handleAddTodo}>Add Todo</button>
+          <TodoForm 
+            handleAddTodo={this.handleAddTodo}
+            handleChanges={this.handleChanges}
+            input={this.state.input}
+          />
           <button onClick={this.handleClearCompleted}>Clear Completed</button>
         </div>
       </div>
